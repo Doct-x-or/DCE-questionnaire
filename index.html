@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI指导下个体化低GL膳食与数字随访缓解糖尿病的患者可接受性调查问卷</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-plus/dist/index.css" />
+  <script src="https://cdn.jsdelivr.net/npm/element-plus"></script>
+  <script src="https://unpkg.com/@element-plus/icons-vue"></script>
+
+  <style>
+    body {
+      background-color: #f4f7f9;
+      font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+      margin: 0;
+      padding: 10px;
+    }
+
+    #app {
+      max-width: 760px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 15px 0;
+      font-size: 13px;
+      table-layout: fixed;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .comparison-table th,
+    .comparison-table td {
+      border: 1px solid #e4e7ed;
+      padding: 12px 8px;
+      text-align: center;
+      vertical-align: middle;
+      position: relative;
+      word-break: break-word;
+    }
+
+    .comparison-table th {
+      background-color: #f5f7fa;
+      color: #909399;
+      font-weight: 600;
+    }
+
+    .highlight-val {
+      color: #409EFF;
+      font-weight: bold;
+    }
+
+    .choice-section {
+      background: #fdf6ec;
+      border: 1px solid #faecd8;
+      border-radius: 12px;
+      padding: 16px;
+      margin-top: 20px;
+    }
+
+    .form-section-title {
+      font-weight: bold;
+      margin: 20px 0 10px 0;
+      color: #409EFF;
+      border-left: 4px solid #409EFF;
+      padding-left: 10px;
+    }
+
+    .attr-info {
+      color: #409EFF;
+      cursor: pointer;
+      margin-left: 6px;
+      font-size: 18px;
+      vertical-align: middle;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .guide-text {
+      font-size: 12px;
+      color: #F56C6C;
+      margin-bottom: 8px;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    .tip-content {
+      font-size: 13px;
+      line-height: 1.7;
+      color: #606266;
+    }
+
+    .attr-label-wrap {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+
+    .summary-card {
+      background: #fafafa;
+      border: 1px solid #ebeef5;
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 14px;
+    }
+
+    .summary-title {
+      font-weight: bold;
+      color: #409EFF;
+      margin-bottom: 10px;
+    }
+
+    .summary-item {
+      font-size: 13px;
+      line-height: 1.8;
+      color: #606266;
+      border-bottom: 1px dashed #ebeef5;
+      padding: 6px 0;
+    }
+
+    .summary-item:last-child {
+      border-bottom: none;
+    }
+
+    .welcome-box {
+      background: #f8fbff;
+      border: 1px solid #d9ecff;
+      border-radius: 12px;
+      padding: 18px;
+      line-height: 1.85;
+      color: #606266;
+      font-size: 14px;
+    }
+
+    .welcome-box p {
+      margin: 0 0 10px 0;
+    }
+
+    .welcome-box p:last-child {
+      margin-bottom: 0;
+    }
+
+    .section-note {
+      font-size: 13px;
+      line-height: 1.8;
+      color: #606266;
+      background: #fafafa;
+      border: 1px solid #ebeef5;
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 14px;
+    }
+
+    .collapse-note {
+      color: #606266;
+      font-size: 13px;
+      line-height: 1.8;
+      padding: 8px 0;
+    }
+
+    .food-link {
+      color: #67c23a;
+      cursor: pointer;
+      text-decoration: underline;
+      font-size: 11px;
+      display: block;
+      margin-top: 4px;
+      font-weight: normal;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 6px;
+      }
+
+      #app {
+        max-width: 100%;
+        padding: 14px;
+        border-radius: 12px;
+      }
+
+      .comparison-table {
+        font-size: 12px;
+        display: block;
+        overflow-x: auto;
+        white-space: normal;
+      }
+
+      .comparison-table th,
+      .comparison-table td {
+        padding: 8px 6px;
+        min-width: 90px;
+      }
+
+      .comparison-table th:first-child,
+      .comparison-table td:first-child {
+        min-width: 150px;
+      }
+
+      .guide-text {
+        font-size: 11px;
+      }
+
+      .attr-info {
+        font-size: 20px;
+      }
+
+      .choice-section {
+        padding: 12px;
+      }
+
+      .el-radio.is-bordered {
+        display: flex;
+        margin: 8px 0;
+        width: 100%;
+        justify-content: center;
+      }
+
+      .summary-item {
+        font-size: 12px;
+        line-height: 1.7;
+      }
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <div class="header">
+    <el-text size="large" type="primary" style="font-weight: bold; font-size: 20px;">
+      AI指导下个体化低GL膳食与数字随访缓解糖尿病的患者可接受性调查问卷
+    </el-text>
+    <el-progress
+      :percentage="Math.round((step/19)*100)"
+      status="primary"
+      :stroke-width="10"
+      style="margin-top:15px;"
+    ></el-progress>
+  </div>
+
+  <!-- Step 1: 研究说明 + 同意 -->
+  <div v-if="step === 1">
+    <div class="welcome-box">
+      <p><b>欢迎参加本次调查，仅需花费您15分钟左右。</b></p>
+      <p>本研究旨在了解2型糖尿病患者对不同情景下糖尿病管理方式的看法和偏好。问卷中展示的内容均为假设情境，仅用于科研分析，不会影响您当前的正常就医和治疗安排。</p>
+      <p>本研究重点关注：如果未来存在不同形式的糖尿病管理服务方案，您更倾向接受哪一种，以及您会如何在预期收益、费用、时间投入、监测方式和支持方式之间进行权衡。</p>
+      <p>本问卷不是医疗处方，不会替代医生意见。题目中提到的“AI建议”“减药评估”“复发预警”等，仅用于描述不同服务方案的特征，不代表一定实施。若临床中涉及减停药，均需由医生评估决定。</p>
+      <p>您可根据自己的真实想法作答，没有标准答案。</p>
+    </div>
+
+    <div class="form-section-title">知情同意</div>
+    <el-checkbox-group v-model="consentChecks">
+      <el-checkbox label="我已阅读并理解本研究说明。"></el-checkbox>
+      <el-checkbox label="我知晓本研究仅用于科研，不影响我当前的诊疗安排。"></el-checkbox>
+      <el-checkbox label="我知晓问卷中的情景均为假设方案，不构成实际治疗建议。"></el-checkbox>
+      <el-checkbox label="我自愿参加本研究，并同意研究团队在严格保密前提下使用问卷数据进行分析。"></el-checkbox>
+      <el-checkbox label="我知晓自己可在任何时候停止填写，不会产生任何不良后果。"></el-checkbox>
+    </el-checkbox-group>
+  </div>
+
+  <!-- Step 2: 基本信息 1 -->
+  <div v-if="step === 2">
+    <el-form label-position="top">
+      <div class="form-section-title">一般情况</div>
+
+      <el-form-item label="您的年龄（岁）">
+        <el-input-number v-model="formData.age" :min="1" :max="120" style="width:100%;"></el-input-number>
+      </el-form-item>
+
+      <el-form-item label="您的性别">
+        <el-radio-group v-model="formData.gender">
+          <el-radio label="男">男</el-radio>
+          <el-radio label="女">女</el-radio>
+          <el-radio label="其他 / 不愿回答">其他 / 不愿回答</el-radio>
+        </el-radio-group>
+      </el-form-item>
+
+      <el-form-item label="您的最高受教育程度">
+        <el-radio-group v-model="formData.education">
+          <el-radio label="初中及以下">初中及以下</el-radio>
+          <el-radio label="高中 / 中专">高中 / 中专</el-radio>
+          <el-radio label="大专">大专</el-radio>
+          <el-radio label="本科">本科</el-radio>
+          <el-radio label="研究生及以上">研究生及以上</el-radio>
+        </el-radio-group>
+      </el-form-item>
+
+      <div class="form-section-title">糖尿病相关情况</div>
+
+      <el-form-item label="您被诊断为2型糖尿病多久了？">
+        <el-radio-group v-model="formData.duration">
+          <el-radio label="不到1年">不到1年</el-radio>
+          <el-radio label="1–5年">1–5年</el-radio>
+          <el-radio label="5–10年">5–10年</el-radio>
+          <el-radio label="10年以上">10年以上</el-radio>
+          <el-radio label="不清楚">不清楚</el-radio>
+        </el-radio-group>
+      </el-form-item>
+
+      <el-form-item label="您目前的治疗方式是？（可多选）">
+        <el-checkbox-group v-model="formData.treatment">
+          <el-checkbox label="未用降糖药">未用降糖药</el-checkbox>
+          <el-checkbox label="口服降糖药">口服降糖药</el-checkbox>
+          <el-checkbox label="胰岛素">胰岛素</el-checkbox>
+          <el-checkbox label="其他注射药">其他注射药</el-checkbox>
+          <el-checkbox label="其他">其他</el-checkbox>
+        </el-checkbox-group>
+        <el-input v-if="formData.treatment.includes('其他')" v-model="formData.treatmentOther" placeholder="请填写其他治疗方式" style="margin-top:8px;"></el-input>
+      </el-form-item>
+
+      <el-form-item label="您最近一次糖化血红蛋白（HbA1c）大约是多少？">
+        <el-input v-model="formData.hba1c" placeholder="请输入数值，如不清楚可留空"></el-input>
+        <el-checkbox v-model="formData.hba1cUnknown" style="margin-top:8px;">不清楚 / 记不清</el-checkbox>
+      </el-form-item>
+    </el-form>
+  </div>
+
+  <!-- Step 3: 基本信息 2 -->
+  <div v-if="step === 3">
+    <el-form label-position="top">
+      <div class="form-section-title">血糖监测与数字工具使用情况</div>
+
+      <el-form-item label="您平时是否进行指尖血糖监测？">
+        <el-radio-group v-model="formData.fingerStick">
+          <el-radio label="不测">不测</el-radio>
+          <el-radio label="测">测</el-radio>
+        </el-radio-group>
+        <div v-if="formData.fingerStick === '测'" style="margin-top:10px;">
+          约 <el-input-number v-model="formData.fingerStickFreq" :min="1" size="small"></el-input-number> 次/周
+        </div>
+      </el-form-item>
+
+      <el-form-item label="您是否使用过连续血糖监测（CGM）设备？">
+        <el-radio-group v-model="formData.cgmStatus">
+          <el-radio label="没用过">没用过</el-radio>
+          <el-radio label="短期用过">短期用过</el-radio>
+          <el-radio label="长期 / 连续用过">长期 / 连续用过</el-radio>
+        </el-radio-group>
+      </el-form-item>
+
+      <el-form-item label="您平时使用手机、微信或APP进行健康管理的熟练程度如何？">
+        <el-radio-group v-model="formData.phoneSkill">
+          <el-radio label="很熟练，可独立完成">很熟练，可独立完成</el-radio>
+          <el-radio label="还可以，需要少量帮助">还可以，需要少量帮助</el-radio>
+          <el-radio label="不太会用，需要他人协助">不太会用，需要他人协助</el-radio>
+        </el-radio-group>
+      </el-form-item>
+
+      <el-form-item label="您是否能独立完成以下操作？（可多选）">
+        <el-checkbox-group v-model="formData.phoneTasks">
+          <el-checkbox label="在手机上查找饮食或健康相关信息">在手机上查找饮食或健康相关信息</el-checkbox>
+          <el-checkbox label="使用微信 / APP填写表单、打卡或上传记录">使用微信 / APP填写表单、打卡或上传记录</el-checkbox>
+          <el-checkbox label="查看并理解图表（如血糖曲线、监测报告）">查看并理解图表（如血糖曲线、监测报告）</el-checkbox>
+          <el-checkbox label="以上都不能 / 需要他人帮助">以上都不能 / 需要他人帮助</el-checkbox>
+        </el-checkbox-group>
+      </el-form-item>
+
+      <el-form-item label="当系统给出健康建议（如饮食、监测或随访提醒）时，您通常：">
+        <el-radio-group v-model="formData.systemAdviceAbility">
+          <el-radio label="能理解并自行执行">能理解并自行执行</el-radio>
+          <el-radio label="需要他人解释后才能执行">需要他人解释后才能执行</el-radio>
+          <el-radio label="很难理解 / 不愿使用此类功能">很难理解 / 不愿使用此类功能</el-radio>
+        </el-radio-group>
+      </el-form-item>
+
+      <div class="form-section-title">饮食管理经历</div>
+
+      <el-form-item label="您以前是否尝试过较严格的饮食控制？">
+        <el-radio-group v-model="formData.dietHistory">
+          <el-radio label="从未试过">从未试过</el-radio>
+          <el-radio label="试过，但很难坚持">试过，但很难坚持</el-radio>
+          <el-radio label="目前正在坚持">目前正在坚持</el-radio>
+        </el-radio-group>
+      </el-form-item>
+
+      <el-form-item label="您觉得自己在饮食控制方面最大的困难是？（可多选）">
+        <el-checkbox-group v-model="formData.dietDifficulties">
+          <el-checkbox label="不清楚该怎么吃">不清楚该怎么吃</el-checkbox>
+          <el-checkbox label="很难长期坚持">很难长期坚持</el-checkbox>
+          <el-checkbox label="生活节奏不规律">生活节奏不规律</el-checkbox>
+          <el-checkbox label="家庭或社交影响大">家庭或社交影响大</el-checkbox>
+          <el-checkbox label="费用负担">费用负担</el-checkbox>
+          <el-checkbox label="记录和监测麻烦">记录和监测麻烦</el-checkbox>
+          <el-checkbox label="其他">其他</el-checkbox>
+        </el-checkbox-group>
+        <el-input v-if="formData.dietDifficulties.includes('其他')" v-model="formData.dietDifficultiesOther" placeholder="请填写其他困难" style="margin-top:8px;"></el-input>
+      </el-form-item>
+    </el-form>
+  </div>
+
+  <!-- Step 4: 属性解释 -->
+  <div v-if="step === 4">
+    <div class="section-note">
+      下面是正式题中可能出现的项目说明。您不需要全部记住；正式作答时也可以点击蓝色问号随时查看解释。
+      如果某个项目没有展示，表示方案A和方案B在这一项上相同。
+    </div>
+
+    <el-collapse v-model="activeAttrPanels">
+      <el-collapse-item v-for="item in attrExplainList" :key="item.label" :name="item.label">
+        <template #title>
+          <span style="font-weight:600;">{{ item.label }}</span>
+        </template>
+        <div class="collapse-note" v-html="item.tooltip"></div>
+        <div v-if="item.label === '个体化低GL饮食方案形式'">
+          <el-button text type="success" @click="showFood = true">查看“固定食谱”示例</el-button>
+        </div>
+      </el-collapse-item>
+    </el-collapse>
+  </div>
+
+  <!-- Step 5: 训练题 -->
+  <div v-if="step === 5">
+    <div class="section-note">
+      下面是一道练习题，用于帮助您熟悉答题方式。<br>
+      这道题不计入正式研究分析结果。<br>
+      每题只展示两个方案中<strong>不同</strong>的项目；没有展示出来的项目，表示两方案在该方面<strong>相同</strong>。<br>
+      请先选出您更倾向的方案，再回答如果现实中可以选择，您是否愿意实际参加该方案。
+    </div>
+
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th width="38%">比较项目</th>
+          <th>方案 A</th>
+          <th>方案 B</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="attr in trainingQuestion.attributes" :key="attr.label">
+          <td>
+            <div class="attr-label-wrap">
+              <span>{{ attr.label }}</span>
+              <el-popover placement="top" :width="320" trigger="click">
+                <template #reference>
+                  <el-icon class="attr-info"><question-filled></question-filled></el-icon>
+                </template>
+                <div class="tip-content" v-html="attrExplainMap[attr.label] || ''"></div>
+              </el-popover>
+            </div>
+          </td>
+          <td class="highlight-val">{{ attr.valA }}</td>
+          <td class="highlight-val">{{ attr.valB }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="choice-section">
+      <p style="font-size:14px; font-weight:bold;">第一步：您更倾向于选择哪一个方案？</p>
+      <el-radio-group v-model="trainingAnswer.pref">
+        <el-radio label="A" size="large" border>方案 A</el-radio>
+        <el-radio label="B" size="large" border>方案 B</el-radio>
+      </el-radio-group>
+
+      <p style="font-size:14px; font-weight:bold; margin-top:15px;">第二步：如果现实中可以选择，您愿意实际参加刚才选中的方案吗？</p>
+      <el-radio-group v-model="trainingAnswer.real">
+        <el-radio label="愿意" size="large">愿意</el-radio>
+        <el-radio label="不愿意" size="large">不愿意</el-radio>
+      </el-radio-group>
+    </div>
+
+    <div class="summary-card" style="margin-top:16px;">
+      <div class="summary-title">理解确认</div>
+      <el-form label-position="top">
+        <el-form-item label="1. 您是否理解：本题没有展示出来的项目，表示方案A和方案B在该方面相同？">
+          <el-radio-group v-model="trainingComprehension.sameMeaning">
+            <el-radio label="理解">理解</el-radio>
+            <el-radio label="不太理解">不太理解</el-radio>
+          </el-radio-group>
+        </el-form-item>
+
+        <el-form-item label="2. 您是否清楚正式题目的作答顺序为：先在A/B中选一个，再回答是否愿意实际参加？">
+          <el-radio-group v-model="trainingComprehension.orderMeaning">
+            <el-radio label="清楚">清楚</el-radio>
+            <el-radio label="不太清楚">不太清楚</el-radio>
+          </el-radio-group>
+        </el-form-item>
+      </el-form>
+    </div>
+
+    <el-dialog
+      v-model="showTrainingHelpDialog"
+      title="统一说明"
+      width="92%"
+      :close-on-click-modal="false"
+      :show-close="false"
+    >
+      <div class="tip-content">
+        “每道题只会列出两个方案之间有差别的项目。没有列出来的项目，表示两方案在这一点上是一样的。您只需要根据列出的不同之处判断自己更倾向选哪一个方案，然后再回答现实中是否愿意参加这个方案。”
+      </div>
+      <template #footer>
+        <el-button type="primary" @click="confirmTrainingHelp">我已明白，进入正式题</el-button>
+      </template>
+    </el-dialog>
+  </div>
+
+  <!-- Step 6-17: 正式题 -->
+  <div v-if="step >= 6 && step <= 17">
+    <div class="form-section-title">第 {{ step - 5 }} / 12 题<span style="font-size:12px; color:#909399; font-weight:normal; margin-left:8px;">还剩 {{ 17 - step }} 题</span></div>
+    <div class="section-note">
+      请先选择您更倾向的方案，再回答如果现实中可以选择，您是否愿意实际参加该方案。
+    </div>
+
+    <div class="guide-text">
+      <el-icon><pointer></pointer></el-icon>
+      点击蓝色问号查看项目解释
+    </div>
+
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th width="38%">比较项目</th>
+          <th>方案 A</th>
+          <th>方案 B</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="attr in dceQuestions[step-6].attributes" :key="attr.label">
+          <td>
+            <div class="attr-label-wrap">
+              <span>{{ attr.label }}</span>
+              <el-popover placement="top" :width="320" trigger="click">
+                <template #reference>
+                  <el-icon class="attr-info"><question-filled></question-filled></el-icon>
+                </template>
+                <div class="tip-content" v-html="attrExplainMap[attr.label] || ''"></div>
+              </el-popover>
+            </div>
+          </td>
+          <td class="highlight-val">{{ attr.valA }}</td>
+          <td class="highlight-val">{{ attr.valB }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="choice-section">
+      <p style="font-size:14px; font-weight:bold;">您更倾向于选哪一个方案？</p>
+      <el-radio-group v-model="answers[step-6].pref">
+        <el-radio label="A" size="large" border>方案 A</el-radio>
+        <el-radio label="B" size="large" border>方案 B</el-radio>
+      </el-radio-group>
+
+      <p style="font-size:14px; font-weight:bold; margin-top:15px;">如果现实中可以选择，您愿意参加刚才选中的方案吗？</p>
+      <el-radio-group v-model="answers[step-6].real">
+        <el-radio label="愿意" size="large">愿意</el-radio>
+        <el-radio label="不愿意" size="large">不愿意</el-radio>
+      </el-radio-group>
+    </div>
+  </div>
+
+  <!-- Step 18: 反馈 -->
+  <div v-if="step === 18">
+    <el-form label-position="top">
+      <el-form-item label="您觉得这些题难理解吗？">
+        <el-rate
+          v-model="feedback.diff"
+          show-text
+          :texts="['很难', '较难', '一般', '较容易', '很容易']"
+        ></el-rate>
+      </el-form-item>
+
+      <el-form-item label="刚才选择时，您最看重哪两个因素？">
+        <el-checkbox-group v-model="feedback.focus" :max="2">
+          <el-checkbox label="糖尿病缓解的可能性">糖尿病缓解的可能性</el-checkbox>
+          <el-checkbox label="月度自付费用">月度自付费用</el-checkbox>
+          <el-checkbox label="个体化低GL饮食方案形式">个体化低GL饮食方案形式</el-checkbox>
+          <el-checkbox label="随访支持方式">随访支持方式</el-checkbox>
+          <el-checkbox label="血糖监测方式与监测强度">血糖监测方式与监测强度</el-checkbox>
+          <el-checkbox label="结果解释和建议方式">结果解释和建议方式</el-checkbox>
+          <el-checkbox label="减停药与复发监测路径">减停药与复发监测路径</el-checkbox>
+          <el-checkbox label="每周投入的时间">每周投入的时间</el-checkbox>
+        </el-checkbox-group>
+      </el-form-item>
+    </el-form>
+  </div>
+
+  <!-- Step 19: 总览 -->
+  <div v-if="step === 19">
+    <div class="summary-card">
+      <div class="summary-title">知情同意确认</div>
+      <div class="summary-item" v-for="item in consentChecks" :key="item">{{ item }}</div>
+    </div>
+
+    <div class="summary-card">
+      <div class="summary-title">基本信息确认</div>
+      <div class="summary-item">年龄：{{ formData.age || '未填写' }}</div>
+      <div class="summary-item">性别：{{ formData.gender || '未填写' }}</div>
+      <div class="summary-item">最高受教育程度：{{ formData.education || '未填写' }}</div>
+      <div class="summary-item">糖尿病病程：{{ formData.duration || '未填写' }}</div>
+      <div class="summary-item">治疗方式：{{ formData.treatment.length ? formData.treatment.join('、') : '未填写' }}</div>
+      <div class="summary-item">HbA1c：{{ formData.hba1cUnknown ? '不清楚 / 记不清' : (formData.hba1c || '未填写') }}</div>
+      <div class="summary-item">指尖血糖监测：{{ formData.fingerStick || '未填写' }}<span v-if="formData.fingerStick === '测'">（约{{ formData.fingerStickFreq }}次/周）</span></div>
+      <div class="summary-item">CGM使用情况：{{ formData.cgmStatus || '未填写' }}</div>
+      <div class="summary-item">手机熟练程度：{{ formData.phoneSkill || '未填写' }}</div>
+      <div class="summary-item">独立手机操作：{{ formData.phoneTasks.length ? formData.phoneTasks.join('、') : '未填写' }}</div>
+      <div class="summary-item">系统建议理解执行：{{ formData.systemAdviceAbility || '未填写' }}</div>
+      <div class="summary-item">饮食控制经历：{{ formData.dietHistory || '未填写' }}</div>
+      <div class="summary-item">饮食控制困难：{{ formData.dietDifficulties.length ? formData.dietDifficulties.join('、') : '未填写' }}</div>
+    </div>
+
+    <div class="summary-card">
+      <div class="summary-title">训练题确认</div>
+      <div class="summary-item">偏好方案：{{ trainingAnswer.pref || '未填写' }}</div>
+      <div class="summary-item">是否愿意参加：{{ trainingAnswer.real || '未填写' }}</div>
+      <div class="summary-item">对“未展示项目相同”的理解：{{ trainingComprehension.sameMeaning || '未填写' }}</div>
+      <div class="summary-item">对作答顺序的理解：{{ trainingComprehension.orderMeaning || '未填写' }}</div>
+      <div class="summary-item">是否触发统一解释：{{ trainingHelpTriggered ? '是' : '否' }}</div>
+    </div>
+
+    <div class="summary-card">
+      <div class="summary-title">正式题作答确认</div>
+      <div class="summary-item" v-for="(ans, index) in answers" :key="'summary-' + index">
+        第{{ index + 1 }}题：偏好 {{ ans.pref || '未选择' }}；是否愿意参加：{{ ans.real || '未选择' }}
+      </div>
+    </div>
+
+    <div class="summary-card">
+      <div class="summary-title">反馈信息确认</div>
+      <div class="summary-item">题目理解难度：{{ diffText }}</div>
+      <div class="summary-item">最看重因素：{{ feedback.focus.length ? feedback.focus.join('、') : '未填写' }}</div>
+    </div>
+
+    <el-alert
+      type="warning"
+      :closable="false"
+      show-icon
+      title="请确认以上内容无误后再提交。如需修改，请点击“返回”回到前面页面。"
+    ></el-alert>
+
+    <el-button
+      type="primary"
+      size="large"
+      @click="submit"
+      :loading="submitting"
+      style="width:100%; margin-top:20px;"
+    >
+      确认提交问卷
+    </el-button>
+  </div>
+
+  <div style="display:flex; justify-content:space-between; margin-top:25px;">
+    <el-button @click="handlePrev" :disabled="step === 1 || submitting">返回</el-button>
+    <el-button
+      type="primary"
+      @click="handleNext"
+      v-if="step < 19"
+      :disabled="!isStepComplete || submitting"
+    >
+      下一步
+    </el-button>
+  </div>
+
+  <el-drawer v-model="showFood" title="固定食谱示例" direction="btt" size="75%">
+    <div style="padding: 10px;">
+      <div style="background:#f0f9eb; padding:10px; margin-bottom:10px; border-radius:8px; font-size:13px;">
+        <b>定义：</b> 所有患者获得适合自己体型和血糖水平的固定食谱，不根据个人情况动态调整。
+      </div>
+      <div style="background:#fdf6ec; padding:10px; margin-bottom:10px; border-radius:8px; font-size:13px;">
+        <b>每餐结构：</b> 1/2蔬菜 + 1/4蛋白 + 1/4低GI主食。
+      </div>
+      <div style="background:#ecf5ff; padding:10px; margin-bottom:10px; border-radius:8px; font-size:13px;">
+        <b>主食建议：</b> 优先杂粮、全谷物、薯类，占主食的一半，减少精制米面。
+      </div>
+      <div style="background:#f4f4f5; padding:10px; margin-bottom:10px; border-radius:8px; font-size:13px;">
+        <b>饮品建议：</b> 白水、无糖茶，不建议含糖饮料和果汁。
+      </div>
+      <div style="background:#f0f9eb; padding:10px; margin-bottom:10px; border-radius:8px; font-size:13px;">
+        <b>加餐建议：</b> 水果1份 / 无糖酸奶1份 / 坚果1小把（三选一）。
+      </div>
+      <div style="background:#ecf5ff; padding:10px; margin-bottom:10px; border-radius:8px; font-size:13px;">
+        <b>早餐示例：</b> 燕麦 + 无糖酸奶 + 鸡蛋。<br>
+        <b>午餐示例：</b> 杂粮饭 + 鱼/鸡胸肉 + 绿叶菜。<br>
+        <b>晚餐示例：</b> 红薯 + 豆腐/瘦肉 + 菌菇/西兰花。<br>
+        <b>常见替换：</b> 白米饭→杂粮饭；白面条→荞麦面；奶茶→无糖茶/白水。
+      </div>
+    </div>
+  </el-drawer>
+</div>
+
+<script>
+const { createApp, ref, computed } = Vue;
+
+const app = createApp({
+  setup() {
+    const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbzRYl9rCj2f7pIkoUlExAznIA0pYKMNyMzO08vxZEf4YYzlqIKFw2wJQAetJQGCLrF47Q/exec';
+
+    const step = ref(1);
+    const showFood = ref(false);
+    const submitting = ref(false);
+    const showTrainingHelpDialog = ref(false);
+    const activeAttrPanels = ref([]);
+
+    const consentChecks = ref([]);
+    const trainingHelpTriggered = ref(false);
+
+    const formData = ref({
+      age: null,
+      gender: '',
+      education: '',
+      duration: '',
+      treatment: [],
+      treatmentOther: '',
+      hba1c: '',
+      hba1cUnknown: false,
+      fingerStick: '',
+      fingerStickFreq: 1,
+      cgmStatus: '',
+      phoneSkill: '',
+      phoneTasks: [],
+      systemAdviceAbility: '',
+      dietHistory: '',
+      dietDifficulties: [],
+      dietDifficultiesOther: ''
+    });
+
+    const trainingAnswer = ref({
+      pref: '',
+      real: ''
+    });
+
+    const trainingComprehension = ref({
+      sameMeaning: '',
+      orderMeaning: ''
+    });
+
+    const feedback = ref({
+      diff: 5,
+      focus: []
+    });
+
+    const answers = ref(Array.from({ length: 12 }, () => ({ pref: '', real: '' })));
+
+    const attrExplainMap = {
+      '个体化低GL饮食方案形式': `
+        <b>这个项目指的是：饮食方案是怎么给您的，以及后面会不会根据情况调整。</b><br><br>
+        <b>水平1：固定食谱</b><br>
+        根据您的基本情况，提供一套相对固定的低GL饮食方案。方案内容通常包括固定的餐次结构、推荐食物类型、标准份量和常见替换建议，但后续不会根据日常记录或血糖变化持续调整。<br><br>
+        <b>水平2：基于记录定期调整</b><br>
+        医生或营养相关专业人员会根据您的饮食记录、体重、活动情况和用药情况，定期帮助调整饮食方案。<br><br>
+        <b>水平3：根据动态血糖结果调整饮食的个体化建议</b><br>
+        在“基于记录定期调整”的基础上，进一步结合动态血糖监测结果，尤其是餐后血糖变化，给出更有针对性的饮食替换建议。
+      `,
+      '随访支持方式': `
+        <b>这个项目指的是：平时由谁来跟进您、以什么方式提供支持。</b><br><br>
+        <b>水平1：线上自助管理</b><br>
+        主要依靠线上课程、图文资料、系统页面或APP提示进行自我管理。您自己学习、自己执行，医务人员参与较少。<br><br>
+        <b>水平2：营养医生定期线上支持</b><br>
+        在自我管理基础上，营养医生会定期通过电话、微信或平台消息等方式跟进和指导您。<br><br>
+        <b>水平3：营养与内分泌多学科定期线上支持</b><br>
+        除了营养医生提供饮食相关建议以外，内分泌医生团队也会从多维度来提供更加全面的医疗保障建议，但通常管理安排也会更多。
+      `,
+      '血糖监测方式与监测强度': `
+        <b>这个项目指的是：平时用什么方式监测血糖，以及监测的频率和强度。</b><br><br>
+        <b>水平1：指尖血自测</b><br>
+        主要使用传统扎手指测血糖的方式，根据日常需要进行监测。<br><br>
+        <b>水平2：定期短期内佩戴血糖监测设备监测</b><br>
+        不是一直佩戴，而是按固定周期短时间使用连续血糖监测设备，例如每季度佩戴1次，每次约14天。<br><br>
+        <b>水平3：长期佩戴血糖监测设备</b><br>
+        持续佩戴连续血糖监测设备，系统可较连续地记录血糖变化，并在餐后血糖偏高或波动异常时提供提醒。
+      `,
+      '结果解释和建议方式': `
+        <b>这个项目指的是：在看到您的血糖和饮食记录后，数字管理平台（如手机APP、小程序或线上系统）会给您什么样的解释和建议。</b><br><br>
+        <b>水平1：仅显示结果</b><br>
+        平台仅展示您的血糖监测结果、变化曲线或饮食记录情况，不提供进一步解释或建议。<br><br>
+        <b>水平2：提供一般解释和建议</b><br>
+        在展示结果的基础上，平台会提供一般性的解释和建议。<br><br>
+        <b>水平3：提供个体化替换建议并及时提醒</b><br>
+        在展示结果的基础上，平台会结合您记录的饮食情况和已有的血糖结果，提供更有针对性的饮食替换建议；当识别到血糖异常或波动较大时，还会给予提醒。
+      `,
+      '糖尿病缓解的可能性': `
+        <b>糖尿病缓解的可能性指的是：</b>经过持续饮食管理后，未用降糖药者或已用药者停药后，血糖控制达标并维持至少3个月的可能性。通常缓解标准是 HbA1c &lt; 6.5%。<br><br>
+        <b>水平1：10%</b>，表示每100人中，大约有10人可以达到这一结果。<br>
+        <b>水平2：25%</b>，表示每100人中，大约有25人可以达到这一结果。<br>
+        <b>水平3：40%</b>，表示每100人中，大约有40人可以达到这一结果。<br><br>
+        请注意：这表示一种预期收益水平，不是保证一定发生，也不表示完全治愈。
+      `,
+      '减停药与复发监测路径': `
+        <b>这个项目指的是：如果您的血糖控制好了，之后医生会不会帮您评估减药，以及会不会继续提醒您关注血糖再次升高。</b><br><br>
+        <b>水平1：按平时复诊，不专门安排减药</b><br>
+        血糖控制达标后，仍按平时门诊复诊。如果想了解能不能减药，通常需要您在复诊时主动咨询医生。<br><br>
+        <b>水平2：定期评估能不能减药</b><br>
+        血糖控制达标后，医生会按固定时间安排评估您是否可以减药。<br><br>
+        <b>水平3：尽快评估减药，并继续关注血糖变化</b><br>
+        血糖控制达标后，会尽快评估您是否可以减药；之后如果血糖再次升高或波动异常，也会及时提醒您。
+      `,
+      '每周投入的时间': `
+        <b>这个项目指的是：您每周为这套管理服务投入的大致总时间。</b><br>
+        这里的时间包括：学习相关知识、记录饮食或血糖、查看反馈结果、与医务人员沟通、复盘和调整方案。<br><br>
+        水平包括：约1小时/周、约3小时/周、约5小时/周。
+      `,
+      '月度自付费用': `
+        <b>这个项目指的是：除医保报销外，您每个月需要自己承担的费用。</b><br><br>
+        水平包括：0元/月、200元/月、600元/月。
+      `
+    };
+
+    const attrExplainList = [
+      { label: '个体化低GL饮食方案形式', tooltip: attrExplainMap['个体化低GL饮食方案形式'] },
+      { label: '随访支持方式', tooltip: attrExplainMap['随访支持方式'] },
+      { label: '血糖监测方式与监测强度', tooltip: attrExplainMap['血糖监测方式与监测强度'] },
+      { label: '结果解释和建议方式', tooltip: attrExplainMap['结果解释和建议方式'] },
+      { label: '糖尿病缓解的可能性', tooltip: attrExplainMap['糖尿病缓解的可能性'] },
+      { label: '减停药与复发监测路径', tooltip: attrExplainMap['减停药与复发监测路径'] },
+      { label: '每周投入的时间', tooltip: attrExplainMap['每周投入的时间'] },
+      { label: '月度自付费用', tooltip: attrExplainMap['月度自付费用'] }
+    ];
+
+    const trainingQuestion = {
+      attributes: [
+        { label: '糖尿病缓解的可能性', valA: '25%', valB: '25%' },
+        { label: '月度自付费用', valA: '200元/月', valB: '200元/月' },
+        { label: '个体化低GL饮食方案形式', valA: '固定食谱', valB: '基于记录定期调整' },
+        { label: '血糖监测方式与监测强度', valA: '指尖血自测', valB: '定期短期内佩戴血糖监测设备监测' },
+        { label: '每周投入的时间', valA: '约1小时/周', valB: '约3小时/周' }
+      ]
+    };
+
+    const dceQuestions = [
+      { attributes: [
+        { label: '糖尿病缓解的可能性', valA: '25%', valB: '40%' },
+        { label: '月度自付费用', valA: '200元/月', valB: '600元/月' },
+        { label: '个体化低GL饮食方案形式', valA: '固定食谱', valB: '基于记录定期调整' },
+        { label: '血糖监测方式与监测强度', valA: '指尖血自测', valB: '定期短期内佩戴血糖监测设备监测' },
+        { label: '每周投入的时间', valA: '约1小时/周', valB: '约3小时/周' }
+      ]},
+      { attributes: [
+        { label: '糖尿病缓解的可能性', valA: '10%', valB: '25%' },
+        { label: '月度自付费用', valA: '0元/月', valB: '200元/月' },
+        { label: '随访支持方式', valA: '线上自助管理', valB: '营养医生定期线上支持' },
+        { label: '结果解释和建议方式', valA: '仅显示结果', valB: '提供一般解释和建议' },
+        { label: '减停药与复发监测路径', valA: '按平时复诊，不专门安排减药', valB: '定期评估能不能减药' }
+      ]},
+      { attributes: [
+        { label: '糖尿病缓解的可能性', valA: '40%', valB: '25%' },
+        { label: '月度自付费用', valA: '600元/月', valB: '200元/月' },
+        { label: '个体化低GL饮食方案形式', valA: '根据动态血糖结果调整饮食的个体化建议', valB: '固定食谱' },
+        { label: '随访支持方式', valA: '营养医生定期线上支持', valB: '营养与内分泌多学科定期线上支持' },
+        { label: '血糖监测方式与监测强度', valA: '长期佩戴血糖监测设备', valB: '指尖血自测' }
+      ]},
+      { attributes: [
+        { label: '糖尿病缓解的可能性', valA: '10%', valB: '40%' },
+        { label: '月度自付费用', valA: '200元/月', valB: '600元/月' },
+        { label: '结果解释和建议方式', valA: '提供个体化替换建议并及时提醒', valB: '仅显示结果' },
+        { label: '减停药与复发监测路径', valA: '尽快评估减药，并继续关注血糖变化', valB: '按平时复诊，不专门安排减药' },
+        { label: '每周投入的时间', valA: '约5小时/周', valB: '约1小时/周' }
+      ]},
+      { attributes: [
+        { label: '糖尿病缓解的可能性', valA: '25%', valB: '10%' },
+        { label: '月度自付费用', valA: '600元/月', valB: '200元/月' },
+        { label: '个体化低GL饮食方案形式', valA: '基于记录定期调整', valB: '根据动态血糖结果调整饮食的个体化建议' },
+        { label: '结果解释和建议方式', valA: '提供一般解释和建议', valB: '提供个体化替换建议并及时提醒' },
+        { label: '减停药与复发监测路径', valA: '定期评估能不能减药', valB: '尽快评估减药，并继续关注血糖变化' }
+      ]},
+      { attributes: [
+        { label: '糖尿病缓解的可能性', valA: '40%', valB: '10%' },
+        { label: '月度自付费用', valA: '200元/月', valB: '200元/月' },
+        { label: '随访支持方式', valA: '营养与内分泌多学科定期线上支持', valB: '线上自助管理' },
+        { label: '血糖监测方式与监测强度', valA: '定期短期内佩戴血糖监测设备监测', valB: '长期佩戴血糖监测设备' },
+        { label: '每周投入的时间', valA: '约3小时/周', valB: '约5小时/周' }
+      ]},
+      { attributes: [
+        { label: '糖尿病缓解的可能性', valA: '25%', valB: '40%' },
+        { label: '月度自付费用', valA: '200元/月', valB: '600元/月' },
+        { label: '个体化低GL饮食方案形式', valA: '固定食谱', valB: '根据动态血糖结果调整饮食的个体化建议' },
+        { label: '随访支持方式', valA: '营养医生定期线上支持', valB: '线上自助管理' },
+        { label: '减停药与复发监测路径', valA: '按平时复诊，不专门安排减药', valB: '尽快评估减药，并继续关注血糖变化' }
+      ]},
+      { attributes: [
+        { label: '糖尿病缓解的可能性', valA: '10%', valB: '25%' },
+        { label: '月度自付费用', valA: '200元/月', valB: '200元/月' },
+        { label: '血糖监测方式与监测强度', valA: '指尖血自测', valB: '长期佩戴血糖监测设备' },
+        { label: '结果解释和建议方式', valA: '仅显示结果', valB: '提供个体化替换建议并及时提醒' },
+        { label: '每周投入的时间', valA: '约1小时/周', valB: '约5小时/周' }
+      ]},
+      { attributes: [
+        { label: '糖尿病缓解的可能性', valA: '40%', valB: '25%' },
+        { label: '月度自付费用', valA: '600元/月', valB: '200元/月' },
+        { label: '个体化低GL饮食方案形式', valA: '基于记录定期调整', valB: '固定食谱' },
+        { label: '随访支持方式', valA: '营养与内分泌多学科定期线上支持', valB: '营养医生定期线上支持' },
+        { label: '结果解释和建议方式', valA: '提供个体化替换建议并及时提醒', valB: '提供一般解释和建议' }
+      ]},
+      { attributes: [
+        { label: '糖尿病缓解的可能性', valA: '25%', valB: '10%' },
+        { label: '月度自付费用', valA: '0元/月', valB: '200元/月' },
+        { label: '血糖监测方式与监测强度', valA: '定期短期内佩戴血糖监测设备监测', valB: '指尖血自测' },
+        { label: '减停药与复发监测路径', valA: '定期评估能不能减药', valB: '按平时复诊，不专门安排减药' },
+        { label: '每周投入的时间', valA: '约3小时/周', valB: '约1小时/周' }
+      ]},
+      { attributes: [
+        { label: '糖尿病缓解的可能性', valA: '10%', valB: '40%' },
+        { label: '月度自付费用', valA: '600元/月', valB: '600元/月' },
+        { label: '个体化低GL饮食方案形式', valA: '根据动态血糖结果调整饮食的个体化建议', valB: '基于记录定期调整' },
+        { label: '结果解释和建议方式', valA: '提供一般解释和建议', valB: '仅显示结果' },
+        { label: '每周投入的时间', valA: '约5小时/周', valB: '约3小时/周' }
+      ]},
+      { attributes: [
+        { label: '糖尿病缓解的可能性', valA: '25%', valB: '25%' },
+        { label: '月度自付费用', valA: '200元/月', valB: '200元/月' },
+        { label: '随访支持方式', valA: '线上自助管理', valB: '营养与内分泌多学科定期线上支持' },
+        { label: '血糖监测方式与监测强度', valA: '长期佩戴血糖监测设备', valB: '定期短期内佩戴血糖监测设备监测' },
+        { label: '减停药与复发监测路径', valA: '尽快评估减药，并继续关注血糖变化', valB: '定期评估能不能减药' }
+      ]}
+    ];
+
+
+    const diffText = computed(() => {
+      const map = { 1: '很难', 2: '较难', 3: '一般', 4: '较容易', 5: '很容易' };
+      return map[feedback.value.diff] || '未填写';
+    });
+
+    const isStepComplete = computed(() => {
+      if (step.value === 1) {
+        return consentChecks.value.length === 5;
+      }
+      if (step.value === 2) {
+        return (
+          formData.value.gender &&
+          formData.value.education &&
+          formData.value.duration
+        );
+      }
+      if (step.value === 3) {
+        return formData.value.fingerStick && formData.value.cgmStatus && formData.value.phoneSkill && formData.value.systemAdviceAbility && formData.value.dietHistory;
+      }
+      if (step.value === 4) {
+        return true;
+      }
+      if (step.value === 5) {
+        return trainingAnswer.value.pref && trainingAnswer.value.real && trainingComprehension.value.sameMeaning && trainingComprehension.value.orderMeaning;
+      }
+      if (step.value >= 6 && step.value <= 17) {
+        return answers.value[step.value - 6].pref !== '' && answers.value[step.value - 6].real !== '';
+      }
+      return true;
+    });
+
+    const buildPayload = () => ({
+      submitted_at: new Date().toISOString(),
+      consentChecks: [...consentChecks.value],
+      formData: { ...formData.value },
+      trainingAnswer: { ...trainingAnswer.value },
+      trainingComprehension: { ...trainingComprehension.value },
+      training_help_triggered: trainingHelpTriggered.value,
+      answers: answers.value.map((x, i) => ({
+        question_no: i + 1,
+        pref: x.pref,
+        real: x.real
+      })),
+      feedback: { ...feedback.value, diff_text: diffText.value }
+    });
+
+    const confirmTrainingHelp = () => {
+      showTrainingHelpDialog.value = false;
+      trainingHelpTriggered.value = true;
+      step.value = 6;
+    };
+
+    const handleNext = () => {
+      if (step.value === 5) {
+        const needsHelp =
+          trainingComprehension.value.sameMeaning === '不太理解' ||
+          trainingComprehension.value.orderMeaning === '不太清楚';
+
+        if (needsHelp) {
+          showTrainingHelpDialog.value = true;
+          return;
+        }
+      }
+
+      step.value += 1;
+    };
+
+    const handlePrev = () => {
+      if (showTrainingHelpDialog.value) return;
+      if (step.value > 1) step.value -= 1;
+    };
+
+    const submit = async () => {
+      try {
+        submitting.value = true;
+
+        if (!BACKEND_URL || BACKEND_URL.includes('请替换为你的 Google Apps Script Web App URL')) {
+          throw new Error('请先把 BACKEND_URL 替换为你部署后的 Google Apps Script Web App 地址（必须以 /exec 结尾）。');
+        }
+
+        const payload = buildPayload();
+
+        // 用隐藏表单 POST 到 Google Apps Script，尽量避免浏览器 fetch 跨域导致的 Failed to fetch
+        const iframeName = 'gas_submit_iframe_' + Date.now();
+        const iframe = document.createElement('iframe');
+        iframe.name = iframeName;
+        iframe.style.display = 'none';
+        document.body.appendChild(iframe);
+
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = BACKEND_URL;
+        form.target = iframeName;
+        form.style.display = 'none';
+
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'payload';
+        input.value = JSON.stringify(payload);
+        form.appendChild(input);
+
+        document.body.appendChild(form);
+        form.submit();
+
+        // GAS 跨域场景下无法可靠读取返回体，这里在提交发出后给出成功提示。
+        setTimeout(() => {
+          try { document.body.removeChild(form); } catch (_) {}
+          try { document.body.removeChild(iframe); } catch (_) {}
+        }, 3000);
+
+        ElementPlus.ElMessage.success('提交请求已发送。若 Apps Script 配置正确，结果将写入表格并发送到指定邮箱。');
+      } catch (e) {
+        console.error(e);
+        ElementPlus.ElMessage.error(e.message || '提交失败，请稍后重试。');
+      } finally {
+        submitting.value = false;
+      }
+    };
+
+    return {
+      BACKEND_URL,
+      step,
+      showFood,
+      submitting,
+      showTrainingHelpDialog,
+      activeAttrPanels,
+      consentChecks,
+      trainingHelpTriggered,
+      formData,
+      trainingAnswer,
+      trainingComprehension,
+      feedback,
+      answers,
+      attrExplainMap,
+      attrExplainList,
+      trainingQuestion,
+      dceQuestions,
+      diffText,
+      isStepComplete,
+      handleNext,
+      handlePrev,
+      confirmTrainingHelp,
+      submit
+    };
+  }
+});
+
+for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+  app.component(key, component);
+}
+app.use(ElementPlus).mount('#app');
+</script>
+</body>
+</html>
